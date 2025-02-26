@@ -58,7 +58,7 @@ new Elysia()
     addCorsHeaders(set);
   })
   .get('/', () => {
-    return 'Selamat datang di Simple Manga API!';
+    return 'miaw :3';
   })
   .get('/search/:query', async ({ params: { query }, set }) => {
     try {
