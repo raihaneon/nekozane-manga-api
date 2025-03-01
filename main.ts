@@ -102,7 +102,7 @@ new Elysia()
       query: Type.String(),
     }),
   })
-  .get('/read/:chapterId', async ({ params: { chapterId }, set }) => {
+  .get('/manga/:chapterId', async ({ params: { chapterId }, set }) => {
     try {
       await delay(1000);
       const decodedChapterId = decodeURIComponent(chapterId);
@@ -161,10 +161,10 @@ new Elysia()
       chapterId: Type.String(),
     }),
   })
-  .get('/detail/:manhwaId', async ({ params: { manhwaId }, set }) => {
+  .get('/manhwa-detail/:manhwaId', async ({ params: { manhwaId }, set }) => {
     try {
       await delay(1000);
-      const response = await fetch(`https://komikstation.co/read/${manhwaId}`, {
+      const response = await fetch(`https://komikstation.co/manga/${manhwaId}`, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
         },
