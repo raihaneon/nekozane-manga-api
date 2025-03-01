@@ -33,7 +33,7 @@ interface MangaDetail {
 // --- Utility function for delays ---
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Fungsi untuk menambahkan header CORS ke respons
+// Function to add CORS headers to responses
 function addCorsHeaders(set: any) {
   set.headers = {
     ...set.headers,
@@ -45,15 +45,15 @@ function addCorsHeaders(set: any) {
   };
 }
 
-// Buat instance aplikasi Elysia
+// Create Elysia app instance
 new Elysia()
-  // Middleware untuk menangani permintaan OPTIONS (preflight)
+  // Middleware to handle OPTIONS requests (preflight)
   .options('*', ({ set }) => {
     set.status = 204;
     addCorsHeaders(set);
     return null;
   })
-  // Hook global untuk menambahkan header CORS ke semua respons
+  // Global hook to add CORS headers to all responses
   .onBeforeHandle(({ set }) => {
     addCorsHeaders(set);
   })
@@ -102,7 +102,7 @@ new Elysia()
       query: Type.String(),
     }),
   })
-  .get('/manga/:chapterId', async ({ params: { chapterId }, set }) => {
+  .get('/read/:chapterId', async ({ params: { chapterId }, set }) => {
     try {
       await delay(1000);
       const decodedChapterId = decodeURIComponent(chapterId);
@@ -161,7 +161,7 @@ new Elysia()
       chapterId: Type.String(),
     }),
   })
-  .get('/manhwa-detail/:manhwaId', async ({ params: { manhwaId }, set }) => {
+  .get('/detail/:manhwaId', async ({ params: { manhwaId }, set }) => {
     try {
       await delay(1000);
       const response = await fetch(`https://komikstation.co/manga/${manhwaId}`, {
