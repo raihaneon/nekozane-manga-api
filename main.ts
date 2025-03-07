@@ -1,7 +1,7 @@
 import { Elysia, swagger } from './deps.ts';
 import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { Static, Type } from 'https://esm.sh/@sinclair/typebox';
-import { launch } from 'https://deno.land/x/puppeteer@16.2.0/mod.ts';
+import { puppeteer }from "https://deno.land/x/puppeteer@16.2.0/mod.ts";
 
 // --- Type Definitions ---
 interface SearchResult {
