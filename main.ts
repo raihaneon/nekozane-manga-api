@@ -137,7 +137,7 @@ async function searchManga(searchTerm: string): Promise<SearchResult[]> {
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
     
     // Navigate to search page
-    const searchUrl = `https://mangadex.org/search?q=${encodeURIComponent(searchTerm)}`;
+    const searchUrl = `https://api.mangadex.org/search?q=${encodeURIComponent(searchTerm)}`;
     await page.goto(searchUrl, { waitUntil: 'networkidle2', timeout: 60000 });
     
     // Wait for search results to load
@@ -285,7 +285,7 @@ new Elysia()
     try {
       await delay(1000); // Add delay to avoid rate limiting
       const decodedChapterId = decodeURIComponent(chapterId);
-      const url = `https://mangadex.org/chapter/${decodedChapterId}`;
+      const url = `https://api.mangadex.org/chapter/${decodedChapterId}`;
       const chapterData = await getChapterData(url);
       return chapterData;
     } catch (error) {
@@ -306,7 +306,7 @@ new Elysia()
   .get('/detail/:mangaId', async ({ params: { mangaId }, set }) => {
     try {
       await delay(1000); // Add delay to avoid rate limiting
-      const url = `https://mangadex.org/title/${mangaId}`;
+      const url = `https://api.mangadex.org/title/${mangaId}`;
       const mangaDetails = await scrapeMangaDetails(url);
       return mangaDetails;
     } catch (error) {
