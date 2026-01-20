@@ -2,7 +2,6 @@ import { Elysia, swagger } from './deps.ts';
 import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { Static, Type } from 'https://esm.sh/@sinclair/typebox';
 
-// --- Type Definitions ---
 interface SearchResult {
   title: string;
   manhwa_id: string;
@@ -30,10 +29,8 @@ interface MangaDetail {
   chapters: { title: string; url: string; date: string }[];
 }
 
-// --- Utility function for delays ---
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Function to add CORS headers to responses
 function addCorsHeaders(set: any) {
   set.headers = {
     ...set.headers,
@@ -45,7 +42,6 @@ function addCorsHeaders(set: any) {
   };
 }
 
-// Create Elysia app instance
 new Elysia()
   .options('*', ({ set }) => {
     set.status = 204;
@@ -210,6 +206,10 @@ new Elysia()
       manhwaId: Type.String(),
     }),
   })
+<<<<<<< HEAD
   .listen(3000); // Pastikan port ditentukan jika diperlukan
 
 console.log('Server is running on port 3000');
+=======
+  .listen();
+>>>>>>> 870d8a39fbd3b01ac7697ecdb3ac1d2d73d51536
