@@ -47,13 +47,11 @@ function addCorsHeaders(set: any) {
 
 // Create Elysia app instance
 new Elysia()
-  // Middleware to handle OPTIONS requests (preflight)
   .options('*', ({ set }) => {
     set.status = 204;
     addCorsHeaders(set);
     return null;
   })
-  // Global hook to add CORS headers to all responses
   .onBeforeHandle(({ set }) => {
     addCorsHeaders(set);
   })
@@ -63,7 +61,8 @@ new Elysia()
   .get('/search/:query', async ({ params: { query }, set }) => {
     try {
       await delay(1500);
-      const response = await fetch(`https://komikstation.co/?s=${query}`, {
+      // Domain updated to .org
+      const response = await fetch(`https://komikstation.org/?s=${query}`, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
         },
@@ -106,7 +105,8 @@ new Elysia()
     try {
       await delay(1000);
       const decodedChapterId = decodeURIComponent(chapterId);
-      const url = `https://komikstation.co/${decodedChapterId}`;
+      // Domain updated to .org
+      const url = `https://komikstation.org/${decodedChapterId}`;
       const response = await fetch(url, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
@@ -126,8 +126,6 @@ new Elysia()
             }
           } catch (e) {
             console.error('Error parsing reader data:', e);
-            set.status = 500;
-            return { error: 'Error parsing reader data', images: [] };
           }
         }
       });
@@ -142,8 +140,9 @@ new Elysia()
       const nextLink = document?.querySelector('.ch-next-btn')?.getAttribute('href');
 
       const navigationLinks = {
-        prev_chapter: prevLink ? new URL(prevLink, 'https://komikstation.co').pathname.slice(1) : null,
-        next_chapter: nextLink ? new URL(nextLink, 'https://komikstation.co').pathname.slice(1) : null,
+        // Domain updated to .org in URL constructor
+        prev_chapter: prevLink ? new URL(prevLink, 'https://komikstation.org').pathname.slice(1) : null,
+        next_chapter: nextLink ? new URL(nextLink, 'https://komikstation.org').pathname.slice(1) : null,
       };
 
       return {
@@ -164,7 +163,8 @@ new Elysia()
   .get('/detail/:manhwaId', async ({ params: { manhwaId }, set }) => {
     try {
       await delay(1000);
-      const response = await fetch(`https://komikstation.co/manga/${manhwaId}`, {
+      // Domain updated to .org
+      const response = await fetch(`https://komikstation.org/manga/${manhwaId}`, {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
         },
@@ -210,4 +210,6 @@ new Elysia()
       manhwaId: Type.String(),
     }),
   })
-  .listen();
+  .listen(3000); // Pastikan port ditentukan jika diperlukan
+
+console.log('Server is running on port 3000');
